@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect} from 'react'
+import {cz} from "./language_cz"
+import {en} from "./language_en"
+import "./basic.css"
 
-function App() {
+
+// Language module //
+
+let language
+let languageSwitch = "en"
+    if (languageSwitch === "cz") {
+        language = cz
+    } else {
+        language = en
+    }
+
+    
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// Main function ///////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const SealBreaker = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    "xx"
+  )
 }
-
-export default App;
