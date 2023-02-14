@@ -23,9 +23,9 @@ export const SealBreaker = () => {
 
   // Init block //
   const [init, setInit] = useState(true)
-    const [grid, setGrid] = useState([])
-    const [columns, setColumns] = useState(5)
-    const [rows, setRows] = useState(5)
+    const [grid] = useState([])
+    const [columns, setColumns] = useState(3)
+    const [rows, setRows] = useState(3)
       let newRow = [], newTile, tileIndex = 0
 
   // Operating block//
@@ -33,7 +33,7 @@ export const SealBreaker = () => {
     const [newRound, setNewRound] = useState(false)
     const [isWin, setIsWin] = useState([])
     const [endGame, setEndGame] = useState(false)
-  
+
 
 
   // Grid initialization //
@@ -42,7 +42,7 @@ export const SealBreaker = () => {
     const createGrid = () => {
       for (let i = 0; i < rows; i++ ) {
         for (let x = 0; x < columns; x++ ) {
-          newTile = <button value={tileIndex} key={x}>{tileIndex}</button>
+          newTile = <button value={tileIndex} empty="true" key={x}>0</button>
           newRow.push(newTile)
           tileIndex++
         }
@@ -64,24 +64,51 @@ export const SealBreaker = () => {
   }
 
   // Row index function //
-  const rowIndex = (id) => {
-    return Math.floor(id / rows)
+  const rowIndex = (id, sealMaker = 0) => {
+    return Math.floor(id / columns - sealMaker)
+
   }
 
   // Column index function //
-  const columnIndex = (id) => {
-    return id % columns
+  const columnIndex = (id, sealMaker = 0) => {
+    return id % columns - sealMaker
+  }
+
+  // Grid data refresh //
+  const tileRefresh = (column = 0, row = 0) => {
+    let isEmpty
+    isEmpty = grid[rowIndex(click, row)][columnIndex(click, column)].props.empty === "true" ? "false" : "true"
+    
+    return grid[rowIndex(click, row)][columnIndex(click, column)] = <button value={grid[rowIndex(click, row)][columnIndex(click, column)].props.value} empty={isEmpty}>{isEmpty}</button>
   }
 
 
-
-  // Grid data refresh //
 
   useEffect(()=>{
     if (endGame === false) {
       if (click !== -1 && click !== undefined) {
-          grid[rowIndex(click)][columnIndex(click)] = <div className='tile'>X</div>
-          setNewRound(true)
+
+        tileRefresh()
+          if (!(columnIndex(click, 1) < 0)) {tileRefresh(1,0)}
+          if (!(columnIndex(click, -1) >= columns)) {tileRefresh(-1,0)}
+          if (!(rowIndex(click, 1) < 0)) {tileRefresh(0,1)}
+          if (!(rowIndex(click, -1) >= rows)) {tileRefresh(0,-1)}
+
+          
+        // Win check //
+
+        setIsWin([])
+        for (let i = 0; i < rows; i++ ) {
+          for (let x = 0; x < columns; x++ ) {
+            isWin.push(grid[i][x].props.empty)
+          }
+        }
+
+        if (!isWin.includes("true")) {
+          setEndGame(true)
+        }
+
+        setNewRound(true)
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

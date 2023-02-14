@@ -18,3 +18,16 @@ h1, h2 {
   margin-bottom:        30px;
   text-align:           center;
 }
+
+
+
+
+
+button {
+  width: 100px;
+  height: 100px;
+}
+
+.red {
+  background-color: red;
+}
