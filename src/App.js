@@ -119,6 +119,14 @@ export const SealBreaker = () => {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [click])
+
+
+  // Re-init //
+
+  useEffect(()=>{
+    setInit(true)
+    setGrid([])
+  }, [columns, rows])
   
   
 
@@ -127,10 +135,9 @@ export const SealBreaker = () => {
     <h1>{language.title}</h1>
     <h3 className='right'>{language.turn} {roundCounter}</h3>
 
-    {/* ToDo */}
     <div className='left'>
-      <input type={"number"} min="3" max="15"  placeholder={language.setRows} onChange={e => setRows(e.target.value)}></input>
-      <input type={"number"} min="3" max="15"  placeholder={language.setColumns} onChange={e => setColumns(e.target.value)}></input>
+      <input type={"number"} min="3" max="5"  placeholder={language.setRows} onChange={e => setRows(e.target.value)}></input>
+      <input type={"number"} min="3" max="5"  placeholder={language.setColumns} onChange={e => setColumns(e.target.value)}></input>
       <form><input type={"submit"} value="Reset"></input></form>
     </div>
 
