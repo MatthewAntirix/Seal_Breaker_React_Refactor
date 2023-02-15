@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import {cz} from "./language_cz"
 import {en} from "./language_en"
+import reactImageSrc from "./images/react.png"
 import "./basic.css"
+
+const reactImage = <img key={1} src={reactImageSrc} alt="fillTile" />
 
 
 // Language module //
@@ -23,7 +26,7 @@ export const SealBreaker = () => {
 
   // Init block //
   const [init, setInit] = useState(true)
-    const [grid] = useState([])
+    const [grid, setGrid] = useState([])
     const [columns, setColumns] = useState(3)
     const [rows, setRows] = useState(3)
       let newRow = [], newTile, tileIndex = 0
@@ -31,6 +34,7 @@ export const SealBreaker = () => {
   // Operating block//
   const [click, setClick] = useState(-1)
     const [newRound, setNewRound] = useState(false)
+    const [roundCounter, setRoundCounter] = useState(0)
     const [isWin, setIsWin] = useState([])
     const [endGame, setEndGame] = useState(false)
 
@@ -42,7 +46,7 @@ export const SealBreaker = () => {
     const createGrid = () => {
       for (let i = 0; i < rows; i++ ) {
         for (let x = 0; x < columns; x++ ) {
-          newTile = <button value={tileIndex} empty="true" key={x}>0</button>
+          newTile = <button value={tileIndex} empty="true" key={x}></button>
           newRow.push(newTile)
           tileIndex++
         }
@@ -76,10 +80,11 @@ export const SealBreaker = () => {
 
   // Grid data refresh //
   const tileRefresh = (column = 0, row = 0) => {
-    let isEmpty
+    let isEmpty, imgSwitch
     isEmpty = grid[rowIndex(click, row)][columnIndex(click, column)].props.empty === "true" ? "false" : "true"
+    imgSwitch = isEmpty === "false" ? reactImage : "" 
     
-    return grid[rowIndex(click, row)][columnIndex(click, column)] = <button value={grid[rowIndex(click, row)][columnIndex(click, column)].props.value} empty={isEmpty}>{isEmpty}</button>
+    return grid[rowIndex(click, row)][columnIndex(click, column)] = <button value={grid[rowIndex(click, row)][columnIndex(click, column)].props.value} empty={isEmpty}>{imgSwitch}</button>
   }
 
 
@@ -109,6 +114,7 @@ export const SealBreaker = () => {
         }
 
         setNewRound(true)
+        setRoundCounter(roundCounter +1)
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -117,16 +123,34 @@ export const SealBreaker = () => {
   
 
   return (
-    <table>
-      <tbody>
-        {grid.map((grid, index) =>
-          <tr key={index}>
-            {grid.map ((tile, index) =>
-              <td className='tile' key={index} onClick={e => setClick(e.target.value)}>{tile}</td>
-            )}
-          </tr>
-        )}
-      </tbody>
-    </table>
+    <>
+    <h1>{language.title}</h1>
+    <h3 className='right'>{language.turn} {roundCounter}</h3>
+
+    {/* ToDo */}
+    <div className='left'>
+      <input type={"number"} min="3" max="15"  placeholder={language.setRows} onChange={e => setRows(e.target.value)}></input>
+      <input type={"number"} min="3" max="15"  placeholder={language.setColumns} onChange={e => setColumns(e.target.value)}></input>
+      {/* <button onClick={e => setInit(true)}>New Game</button> */}
+    </div>
+
+    { endGame ?
+      <h2>{language.win}</h2>
+    :
+      ""
+    }
+
+      <table>
+        <tbody>
+          {grid.map((grid, index) =>
+            <tr key={index}>
+              {grid.map ((tile, index) =>
+                <td className='tile' key={index} onClick={e => setClick(e.target.value)}>{tile}</td>
+              )}
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </>
   )
 }
