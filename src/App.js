@@ -131,7 +131,7 @@ export const SealBreaker = () => {
     <div className='left'>
       <input type={"number"} min="3" max="15"  placeholder={language.setRows} onChange={e => setRows(e.target.value)}></input>
       <input type={"number"} min="3" max="15"  placeholder={language.setColumns} onChange={e => setColumns(e.target.value)}></input>
-      {/* <button onClick={e => setInit(true)}>New Game</button> */}
+      <form><input type={"submit"} value="Reset"></input></form>
     </div>
 
     { endGame ?
