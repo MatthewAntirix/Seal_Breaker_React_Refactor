@@ -1,16 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import {cz} from "./language_cz"
 import {en} from "./language_en"
-import reactImageSrc from "./images/react.png"
 import "./basic.css"
-
-const reactImage = <img key={1} src={reactImageSrc} alt="fillTile" />
 
 
 // Language module //
 
 let language
-let languageSwitch = "en"
+let languageSwitch = "cz"
     if (languageSwitch === "cz") {
         language = cz
     } else {
@@ -46,7 +43,7 @@ export const SealBreaker = () => {
     const createGrid = () => {
       for (let i = 0; i < rows; i++ ) {
         for (let x = 0; x < columns; x++ ) {
-          newTile = <button value={tileIndex} empty="true" key={x}></button>
+          newTile = <button className='empty' value={tileIndex} empty="true" key={x}></button>
           newRow.push(newTile)
           tileIndex++
         }
@@ -80,11 +77,11 @@ export const SealBreaker = () => {
 
   // Grid data refresh //
   const tileRefresh = (column = 0, row = 0) => {
-    let isEmpty, imgSwitch
+    let isEmpty, bgSwitch
     isEmpty = grid[rowIndex(click, row)][columnIndex(click, column)].props.empty === "true" ? "false" : "true"
-    imgSwitch = isEmpty === "false" ? reactImage : "" 
-    
-    return grid[rowIndex(click, row)][columnIndex(click, column)] = <button value={grid[rowIndex(click, row)][columnIndex(click, column)].props.value} empty={isEmpty}>{imgSwitch}</button>
+    bgSwitch = isEmpty === "false" ? "fill" : "empty"  
+
+    return grid[rowIndex(click, row)][columnIndex(click, column)] = <button className={bgSwitch} value={grid[rowIndex(click, row)][columnIndex(click, column)].props.value} empty={isEmpty}></button>
   }
 
 
@@ -138,7 +135,7 @@ export const SealBreaker = () => {
     <div className='left'>
       <input type={"number"} min="3" max="5"  placeholder={language.setRows} onChange={e => setRows(e.target.value)}></input>
       <input type={"number"} min="3" max="5"  placeholder={language.setColumns} onChange={e => setColumns(e.target.value)}></input>
-      <form><input type={"submit"} value="Reset"></input></form>
+      <form><input type={"submit"} value={language.reset}></input></form>
     </div>
 
     { endGame ?

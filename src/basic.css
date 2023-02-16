@@ -38,16 +38,26 @@ img {
 
 input {
   display:              block;
-  width:                100px;
+  width:                120px;
   margin:               5px;
   padding:              5px;
 }
 
-
 button {
   width:                100px;
   height:               100px;
-  background-image:     url("images/frame.jpg");
   border:               solid 2px #000;
 }
+
+  button.empty {
+    background-image:     url("images/frame.jpg");
+  }
+
+  button.fill {
+    background-color:     #61dafb;
+    background-image:     url("images/react.png");
+    background-repeat:    no-repeat;
+    background-size:      80%;
+    background-position:  center;
+  }
 

@@ -5,4 +5,5 @@ export const cz = {
     win: "Gratuluji zvládl jsi to!",
     setRows: "Počet řádků!",
     setColumns: "Počet sloupců!",
+    reset: "Reset",
 }

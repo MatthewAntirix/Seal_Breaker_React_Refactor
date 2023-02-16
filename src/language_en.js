@@ -5,4 +5,5 @@ export const en = {
     win: "Congratulation you did it!",
     setRows: "Set rows!",
     setColumns: "Set columns!",
+    reset: "Reset",
 }
