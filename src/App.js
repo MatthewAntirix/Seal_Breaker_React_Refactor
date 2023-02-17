@@ -7,7 +7,7 @@ import "./basic.css"
 // Language module //
 
 let language
-let languageSwitch = "cz"
+let languageSwitch = "en"
     if (languageSwitch === "cz") {
         language = cz
     } else {
