@@ -28,14 +28,18 @@ export const SealBreaker = () => {
     const [rows, setRows] = useState(3)
       let newRow = [], newTile, tileIndex = 0
 
-  // Operating block//
+  // Operating block //
   const [click, setClick] = useState(-1)
     const [newRound, setNewRound] = useState(false)
     const [roundCounter, setRoundCounter] = useState(0)
     const [isWin, setIsWin] = useState([])
     const [endGame, setEndGame] = useState(false)
 
-
+  // DtoIn validation //
+    if (columns > 5) {setColumns(5)}
+    if (columns < 3) {setColumns(3)}
+    if (rows > 5) {setRows(5)}
+    if (rows < 3){ setRows(3)}
 
   // Grid initialization //
 
